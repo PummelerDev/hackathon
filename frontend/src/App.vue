@@ -1,10 +1,11 @@
 <template>
-<div>Hello!</div>
+  <main>
+    <router-view />
+  </main>
 </template>
 
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import api from './composables/api'
+import api from '@/composables/api'
 
 const fetchUsers =  async () => {
   try {
