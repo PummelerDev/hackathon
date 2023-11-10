@@ -4,3 +4,9 @@
 	</section>
 </template>
 
+<script setup>
+import {useCounterStore} from "@/stores/counter"
+
+const store = useCounterStore()
+</script>
+
