@@ -7,19 +7,12 @@
 ## Стек
 
 <h3><i>Frontend</i> - Vue 3</h3>
+<br>
+<img src="./frontend/src/assets/img/readme/vue.svg" alt="Vue" width="100" height="100">
+<br>
 <h3><i>Backend</i> - Spring</h3>
 <br>
-<div style="display: flex; justify-content: center; align-items: center; gap: 60px">
-    <div style="display: flex; flex-direction: column; align-items: center">
-        <img src="./frontend/src/assets/img/readme/vue.svg" alt="Vue" width="100" height="100">
-        <h3>Vue 3</h3>
-    </div>
-    <div style="display: flex; flex-direction: column; align-items: center">
-        <img src="./frontend/src/assets/img/readme/spring.png" alt="Spring" width="100" height="100">
-        <h3>Spring</h3>
-    </div>
-</div>
-<br>
+<img src="./frontend/src/assets/img/readme/spring.png" alt="Spring" width="100" height="100">
 
 ## Описание проекта
 
