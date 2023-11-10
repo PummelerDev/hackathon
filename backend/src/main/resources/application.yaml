@@ -1,7 +1,9 @@
 server:
   port: 8080
 front:
-  host: http://localhost:5173
+  host:
+    http://localhost:5173,
+    https://hackathon-git-main-eireensid:vercel:app
 spring:
   datasource:
     #    url: jdbc:postgresql://localhost:35432/postgres-back
