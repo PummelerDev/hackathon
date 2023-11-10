@@ -1,7 +1,7 @@
 server:
   port: 8080
 front:
-  host: http://localhost
+  host: http://localhost:5173
 spring:
   datasource:
     #    url: jdbc:postgresql://localhost:35432/postgres-back
