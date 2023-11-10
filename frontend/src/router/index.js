@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Main from '@/views/Main.vue'
-import NotFound from '@/views/NotFound.vue'
+import Main from '@/pages/Main.vue'
+import NotFound from '@/pages/NotFound.vue'
 
 const router = createRouter({
   routes: [
