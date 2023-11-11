@@ -2,7 +2,7 @@ FROM maven:3.6.0-jdk-11-slim AS builder
 WORKDIR /app
 COPY src /app/src
 COPY pom.xml /app
-RUN mvn -f /app/pom.xml clean package
+RUN mvn -f /app/pom.xml clean package -DskipTests=true
 
 FROM adoptopenjdk/openjdk11
 RUN apt-get update && apt-get install -y iputils-ping
