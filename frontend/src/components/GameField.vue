@@ -37,7 +37,7 @@ const init = () => {
 
   const context = canvas.getContext("2d")
   const img = new Image();
-  img.src = './src/assets/img/happy-resized.jpg';
+  img.src = 'https://i.postimg.cc/yNf4zSPB/happy-resized.jpg';
   img.addEventListener('load', drawTiles, false);
 
   const boardSize = document.getElementById('puzzle').width;
