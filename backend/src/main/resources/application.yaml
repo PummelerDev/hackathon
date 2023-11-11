@@ -3,7 +3,8 @@ server:
 front:
   host:
     http://localhost:5173,
-    https://hackathon-git-main-eireensid.vercel.app
+    https://hackathon-git-main-eireensid.vercel.app,
+    https://hackathon-pummelerdevs-projects.vercel.app
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
@@ -18,7 +19,7 @@ spring:
       idle-timeout: 60000
       auto-commit: true
   flyway:
-    enabled: true
+    enabled: false
     validate-on-migrate: true
   jpa:
     show-sql: true
