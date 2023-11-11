@@ -13,32 +13,45 @@
 </template>
 
 <script setup>
-import {onMounted} from "vue";
-import {randomIntFromInterval} from "@/composables/utils.js";
+import {onMounted, watch} from "vue";
+import useEventsBus from "@/composables/eventBus.js";
 
-onMounted(() => {
-  var canvas = document.getElementById("puzzle")
+const { bus } = useEventsBus()
+
+watch(() => bus.value.get('restartGame'), () => {
+  init()
+})
+
+const init = () => {
+  const canvas = document.getElementById("puzzle")
   canvas.width  = 480;
   canvas.height = 480;
+<<<<<<< HEAD
   var context = canvas.getContext("2d")
   var img = new Image();
 	img.src = 'http://www.brucealderman.info/Images/dimetrodon.jpg';
+=======
+  const context = canvas.getContext("2d")
+  const img = new Image();
+  img.src = '/src/assets/img/happy-resized.jpg';
+>>>>>>> 8212aa83c47c695930fddac12fb85966a2276620
   img.addEventListener('load', drawTiles, false);
 
-  var boardSize = document.getElementById('puzzle').width;
-  var tileCount = document.getElementById('scale').value;
-  var tileSize = boardSize / tileCount;
-  var boardParts = new Object;
-  var clickLoc = new Object;
+  const boardSize = document.getElementById('puzzle').width;
+  let tileCount = document.getElementById('scale').value;
+  let tileSize = boardSize / tileCount;
+  let boardParts = new Object;
+  const clickLoc = new Object;
   clickLoc.x = 0;
   clickLoc.y = 0;
 
-  var emptyLoc = new Object;
+  const emptyLoc = new Object;
   emptyLoc.x = 0;
   emptyLoc.y = 0;
-  var solved = false;
+  let solved = false;
   setBoard();
 
+<<<<<<< HEAD
 	function setBoard() {
 		var allPositions = [];
 		for (var i = 0; i < tileCount; ++i) {
@@ -63,12 +76,30 @@ onMounted(() => {
 		drawTiles();
 	}
 
-
-  function generateEmptyLoc() {
-    const rndInt = randomIntFromInterval(1, 4)
-    emptyLoc.x = boardParts[tileCount - rndInt][tileCount - rndInt].x;
-    emptyLoc.y = boardParts[tileCount - rndInt][tileCount - rndInt].y;
+=======
+  function setBoard() {
+    const allPositions = [];
+    for (let i = 0; i < tileCount; ++i) {
+      for (let j = 0; j < tileCount; ++j) {
+        allPositions.push({ x: i, y: j });
+      }
+    }
+    allPositions.sort(() => Math.random() - 0.5);
+    boardParts = new Array(tileCount);
+    for (let i = 0; i < tileCount; ++i) {
+      boardParts[i] = new Array(tileCount);
+    }
+    for (let i = 0; i < tileCount; ++i) {
+      for (let j = 0; j < tileCount; ++j) {
+        let idx = i * tileCount + j;
+        boardParts[i][j] = allPositions[idx];
+      }
+    }
+    emptyLoc.x = boardParts[tileCount - 1][tileCount - 1].x;
+    emptyLoc.y = boardParts[tileCount - 1][tileCount - 1].y;
+    solved = false;
   }
+>>>>>>> 8212aa83c47c695930fddac12fb85966a2276620
 
   document.getElementById('scale').onchange = function() {
     tileCount = this.value;
@@ -109,9 +140,9 @@ onMounted(() => {
   }
 
   function checkSolved() {
-    var flag = true;
-    for (var i = 0; i < tileCount; ++i) {
-      for (var j = 0; j < tileCount; ++j) {
+    let flag = true;
+    for (let i = 0; i < tileCount; ++i) {
+      for (let j = 0; j < tileCount; ++j) {
         if (boardParts[i][j].x != i || boardParts[i][j].y != j) {
           flag = false;
         }
@@ -122,10 +153,10 @@ onMounted(() => {
 
   function drawTiles() {
     context.clearRect ( 0 , 0 , boardSize , boardSize );
-    for (var i = 0; i < tileCount; ++i) {
-      for (var j = 0; j < tileCount; ++j) {
-        var x = boardParts[i][j].x;
-        var y = boardParts[i][j].y;
+    for (let i = 0; i < tileCount; ++i) {
+      for (let j = 0; j < tileCount; ++j) {
+        let x = boardParts[i][j].x;
+        let y = boardParts[i][j].y;
 
         if(i != emptyLoc.x || j != emptyLoc.y || solved == true) {
           context.drawImage(img, x * tileSize, y * tileSize, tileSize, tileSize,
@@ -143,9 +174,16 @@ onMounted(() => {
     context.closePath();
     filled ? context.fill() : context.stroke();
   }
+<<<<<<< HEAD
 
 	function restartGame() {
 		setBoard();
 	}
+=======
+}
+
+onMounted(() => {
+  init()
+>>>>>>> 8212aa83c47c695930fddac12fb85966a2276620
 })
 </script>
