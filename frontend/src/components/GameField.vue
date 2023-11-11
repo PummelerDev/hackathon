@@ -26,15 +26,10 @@ const init = () => {
   const canvas = document.getElementById("puzzle")
   canvas.width  = 480;
   canvas.height = 480;
-<<<<<<< HEAD
-  var context = canvas.getContext("2d")
-  var img = new Image();
-	img.src = 'http://www.brucealderman.info/Images/dimetrodon.jpg';
-=======
+
   const context = canvas.getContext("2d")
   const img = new Image();
   img.src = '/src/assets/img/happy-resized.jpg';
->>>>>>> 8212aa83c47c695930fddac12fb85966a2276620
   img.addEventListener('load', drawTiles, false);
 
   const boardSize = document.getElementById('puzzle').width;
@@ -51,7 +46,7 @@ const init = () => {
   let solved = false;
   setBoard();
 
-<<<<<<< HEAD
+
 	function setBoard() {
 		var allPositions = [];
 		for (var i = 0; i < tileCount; ++i) {
@@ -76,7 +71,7 @@ const init = () => {
 		drawTiles();
 	}
 
-=======
+
   function setBoard() {
     const allPositions = [];
     for (let i = 0; i < tileCount; ++i) {
@@ -99,7 +94,6 @@ const init = () => {
     emptyLoc.y = boardParts[tileCount - 1][tileCount - 1].y;
     solved = false;
   }
->>>>>>> 8212aa83c47c695930fddac12fb85966a2276620
 
   document.getElementById('scale').onchange = function() {
     tileCount = this.value;
@@ -174,16 +168,13 @@ const init = () => {
     context.closePath();
     filled ? context.fill() : context.stroke();
   }
-<<<<<<< HEAD
 
 	function restartGame() {
 		setBoard();
 	}
-=======
 }
 
 onMounted(() => {
   init()
->>>>>>> 8212aa83c47c695930fddac12fb85966a2276620
 })
 </script>
