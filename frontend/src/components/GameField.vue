@@ -13,59 +13,59 @@
 </template>
 
 <script setup>
-import {onMounted} from "vue";
-import {randomIntFromInterval} from "@/composables/utils.js";
+import {onMounted, watch} from "vue";
+import useEventsBus from "@/composables/eventBus.js";
 
-onMounted(() => {
-  var canvas = document.getElementById("puzzle")
+const { bus } = useEventsBus()
+
+watch(() => bus.value.get('restartGame'), () => {
+  init()
+})
+
+const init = () => {
+  const canvas = document.getElementById("puzzle")
   canvas.width  = 480;
   canvas.height = 480;
-  var context = canvas.getContext("2d")
-  var img = new Image();
+  const context = canvas.getContext("2d")
+  const img = new Image();
   img.src = '/src/assets/img/happy-resized.jpg';
   img.addEventListener('load', drawTiles, false);
 
-  var boardSize = document.getElementById('puzzle').width;
-  var tileCount = document.getElementById('scale').value;
-  var tileSize = boardSize / tileCount;
-  var boardParts = new Object;
-  var clickLoc = new Object;
+  const boardSize = document.getElementById('puzzle').width;
+  let tileCount = document.getElementById('scale').value;
+  let tileSize = boardSize / tileCount;
+  let boardParts = new Object;
+  const clickLoc = new Object;
   clickLoc.x = 0;
   clickLoc.y = 0;
 
-  var emptyLoc = new Object;
+  const emptyLoc = new Object;
   emptyLoc.x = 0;
   emptyLoc.y = 0;
-  var solved = false;
+  let solved = false;
   setBoard();
 
   function setBoard() {
-    var allPositions = [];
-    for (var i = 0; i < tileCount; ++i) {
-      for (var j = 0; j < tileCount; ++j) {
+    const allPositions = [];
+    for (let i = 0; i < tileCount; ++i) {
+      for (let j = 0; j < tileCount; ++j) {
         allPositions.push({ x: i, y: j });
       }
     }
     allPositions.sort(() => Math.random() - 0.5);
     boardParts = new Array(tileCount);
-    for (var i = 0; i < tileCount; ++i) {
+    for (let i = 0; i < tileCount; ++i) {
       boardParts[i] = new Array(tileCount);
     }
-    for (var i = 0; i < tileCount; ++i) {
-      for (var j = 0; j < tileCount; ++j) {
-        var idx = i * tileCount + j;
+    for (let i = 0; i < tileCount; ++i) {
+      for (let j = 0; j < tileCount; ++j) {
+        let idx = i * tileCount + j;
         boardParts[i][j] = allPositions[idx];
       }
     }
     emptyLoc.x = boardParts[tileCount - 1][tileCount - 1].x;
     emptyLoc.y = boardParts[tileCount - 1][tileCount - 1].y;
     solved = false;
-  }
-
-  function generateEmptyLoc() {
-    const rndInt = randomIntFromInterval(1, tileCount)
-    emptyLoc.x = boardParts[tileCount - rndInt][tileCount - rndInt].x;
-    emptyLoc.y = boardParts[tileCount - rndInt][tileCount - rndInt].y;
   }
 
   document.getElementById('scale').onchange = function() {
@@ -107,9 +107,9 @@ onMounted(() => {
   }
 
   function checkSolved() {
-    var flag = true;
-    for (var i = 0; i < tileCount; ++i) {
-      for (var j = 0; j < tileCount; ++j) {
+    let flag = true;
+    for (let i = 0; i < tileCount; ++i) {
+      for (let j = 0; j < tileCount; ++j) {
         if (boardParts[i][j].x != i || boardParts[i][j].y != j) {
           flag = false;
         }
@@ -120,10 +120,10 @@ onMounted(() => {
 
   function drawTiles() {
     context.clearRect ( 0 , 0 , boardSize , boardSize );
-    for (var i = 0; i < tileCount; ++i) {
-      for (var j = 0; j < tileCount; ++j) {
-        var x = boardParts[i][j].x;
-        var y = boardParts[i][j].y;
+    for (let i = 0; i < tileCount; ++i) {
+      for (let j = 0; j < tileCount; ++j) {
+        let x = boardParts[i][j].x;
+        let y = boardParts[i][j].y;
 
         // const point1 = {x: boardParts[i][j].x,  y: boardParts[i][j].y};
         // const point2 = {x: tileSize, y: 0};
@@ -146,5 +146,9 @@ onMounted(() => {
     context.closePath();
     filled ? context.fill() : context.stroke();
   }
+}
+
+onMounted(() => {
+  init()
 })
 </script>
