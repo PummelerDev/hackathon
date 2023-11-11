@@ -7,7 +7,7 @@ front:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:35432/postgres}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgresdb:5432/postgres?useSSL=false}
     username: postgres
     password: postgres
     hikari:
