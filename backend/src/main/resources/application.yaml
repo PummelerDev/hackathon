@@ -19,6 +19,9 @@ spring:
   flyway:
     enabled: true
     validate-on-migrate: true
+    url: jdbc:postgresql://postgresdb:5432/postgres
+    user: postgres
+    password: postgres
   jpa:
     show-sql: true
     properties:
