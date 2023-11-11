@@ -17,7 +17,7 @@ spring:
       idle-timeout: 60000
       auto-commit: true
   flyway:
-    enabled: true
+    enabled: false
     validate-on-migrate: true
     url: jdbc:postgresql://postgresdb:5432/postgres
     user: postgres
