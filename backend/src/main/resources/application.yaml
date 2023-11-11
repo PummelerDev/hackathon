@@ -3,8 +3,9 @@ server:
 front:
   host:
     http://localhost:5173,
-    https://hackathon-git-main-eireensid.vercel.app,
-    https://hackathon-pummelerdevs-projects.vercel.app
+    https://hackathon-pummelerdevs-projects.vercel.app,
+    https://hackathon-livid-seven.vercel.app,
+    https://hackathon-git-master-pummelerdevs-projects.vercel.app
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
