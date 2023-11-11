@@ -14,6 +14,7 @@
 
 <script setup>
 import {onMounted} from "vue";
+import {randomIntFromInterval} from "@/composables/utils.js";
 
 onMounted(() => {
   var canvas = document.getElementById("puzzle")
@@ -48,9 +49,14 @@ onMounted(() => {
         boardParts[i][j].y = (tileCount - 1) - j;
       }
     }
-    emptyLoc.x = boardParts[tileCount - 1][tileCount - 1].x;
-    emptyLoc.y = boardParts[tileCount - 1][tileCount - 1].y;
+    generateEmptyLoc()
     solved = false;
+  }
+
+  function generateEmptyLoc() {
+    const rndInt = randomIntFromInterval(1, 4)
+    emptyLoc.x = boardParts[tileCount - rndInt][tileCount - rndInt].x;
+    emptyLoc.y = boardParts[tileCount - rndInt][tileCount - rndInt].y;
   }
 
   document.getElementById('scale').onchange = function() {
@@ -109,12 +115,27 @@ onMounted(() => {
       for (var j = 0; j < tileCount; ++j) {
         var x = boardParts[i][j].x;
         var y = boardParts[i][j].y;
+
+        // const point1 = {x: boardParts[i][j].x,  y: boardParts[i][j].y};
+        // const point2 = {x: tileSize, y: 0};
+        // const point3 = {x: tileSize / 2, y: tileSize / 2 };
+        // drawTriangle(context, point1, point2, point3, true);
+
         if(i != emptyLoc.x || j != emptyLoc.y || solved == true) {
           context.drawImage(img, x * tileSize, y * tileSize, tileSize, tileSize,
               i * tileSize, j * tileSize, tileSize, tileSize);
         }
       }
     }
+  }
+
+  function drawTriangle(context, point1, point2, point3, filled) {
+    context.beginPath();
+    context.moveTo(point1.x, point1.y);
+    context.lineTo(point2.x, point2.y);
+    context.lineTo(point3.x, point3.y);
+    context.closePath();
+    filled ? context.fill() : context.stroke();
   }
 })
 </script>
