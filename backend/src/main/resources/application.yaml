@@ -3,7 +3,7 @@ server:
 front:
   host:
     http://localhost:5173,
-    https://hackathon-git-main-eireensid:vercel:app
+    https://hackathon-git-main-eireensid.vercel.app
 spring:
   datasource:
     #    url: jdbc:postgresql://localhost:35432/postgres-back
