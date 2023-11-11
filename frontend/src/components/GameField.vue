@@ -40,21 +40,29 @@ onMounted(() => {
   setBoard();
 
   function setBoard() {
+    var allPositions = [];
+    for (var i = 0; i < tileCount; ++i) {
+      for (var j = 0; j < tileCount; ++j) {
+        allPositions.push({ x: i, y: j });
+      }
+    }
+    allPositions.sort(() => Math.random() - 0.5);
     boardParts = new Array(tileCount);
     for (var i = 0; i < tileCount; ++i) {
       boardParts[i] = new Array(tileCount);
+    }
+    for (var i = 0; i < tileCount; ++i) {
       for (var j = 0; j < tileCount; ++j) {
-        boardParts[i][j] = new Object;
-        boardParts[i][j].x = (tileCount - 1) - i;
-        boardParts[i][j].y = (tileCount - 1) - j;
+        var idx = i * tileCount + j;
+        boardParts[i][j] = allPositions[idx];
       }
     }
-    generateEmptyLoc()
+    generateEmptyLoc();
     solved = false;
   }
 
   function generateEmptyLoc() {
-    const rndInt = randomIntFromInterval(1, 4)
+    const rndInt = randomIntFromInterval(1, tileCount)
     emptyLoc.x = boardParts[tileCount - rndInt][tileCount - rndInt].x;
     emptyLoc.y = boardParts[tileCount - rndInt][tileCount - rndInt].y;
   }
