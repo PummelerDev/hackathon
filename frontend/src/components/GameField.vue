@@ -186,8 +186,10 @@ const init = () => {
         context.lineTo(x + 5, y + 5);
         break;
     }
-    context.strokeStyle = "rgba(13, 110, 253, 0.8)";
+    context.strokeStyle = "white";
     context.lineWidth = 3;
+    context.strokeRect(x - 7, y - 7, 14, 14);
+    context.strokeStyle = "blue";
     context.stroke();
   }
 

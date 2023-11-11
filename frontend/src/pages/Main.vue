@@ -2,7 +2,7 @@
 	<Header/>
 		<PopupStart/>
 		<section class="d-flex align-items-center flex-column">
-			<h1>Пятнашки</h1>
+			<h1 class="p-2">Пятнашки "Счастливая семья"</h1>
 	    <GameField/>
 		</section>
 	<PopupWin  v-if="isPuzzleSolved"/>
