@@ -21,9 +21,11 @@ const { bus } = useEventsBus();
 const { emit } = useEventsBus();
 
 const solvePuzzle = ref(null)
-
+const stepsCount = ref(0)
 
 watch(() => bus.value.get('restartGame'), () => {
+  stepsCount.value = 0
+  emit("setSteps", stepsCount.value);
   init()
 })
 
@@ -93,8 +95,8 @@ const init = () => {
     if (distance(clickLoc.x, clickLoc.y, emptyLoc.x, emptyLoc.y) == 1) {
       slideTile(emptyLoc, clickLoc);
       drawTiles();
+      emit("setSteps", ++stepsCount.value);
     }
-
   };
 
   function distance(x1, y1, x2, y2) {
