@@ -5,10 +5,6 @@
 			<h1>Пятнашки</h1>
 	    <GameField/>
 		</section>
-	<section>
-		<h1>Пятнашки</h1>
-    <GameField/>
-	</section>
 </template>
 
 <script setup>
