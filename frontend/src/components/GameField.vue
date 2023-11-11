@@ -22,7 +22,7 @@ onMounted(() => {
   canvas.height = 480;
   var context = canvas.getContext("2d")
   var img = new Image();
-  img.src = 'http://www.brucealderman.info/Images/dimetrodon.jpg';
+  img.src = '/src/assets/img/happy-resized.jpg';
   img.addEventListener('load', drawTiles, false);
 
   var boardSize = document.getElementById('puzzle').width;
@@ -57,7 +57,8 @@ onMounted(() => {
         boardParts[i][j] = allPositions[idx];
       }
     }
-    generateEmptyLoc();
+    emptyLoc.x = boardParts[tileCount - 1][tileCount - 1].x;
+    emptyLoc.y = boardParts[tileCount - 1][tileCount - 1].y;
     solved = false;
   }
 

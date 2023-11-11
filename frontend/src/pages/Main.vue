@@ -2,7 +2,7 @@
 	<Header/>
 	<PopupStart/>
 		<section class="d-flex align-items-center flex-column">
-			<h1>Пятнашки</h1>
+			<h1>Теплые пятнашки</h1>
 	    <GameField/>
 		</section>
 </template>
