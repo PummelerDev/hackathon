@@ -2,7 +2,7 @@
   <div id="slider">
     <form>
       <label>Легко</label>
-      <input type="range" id="scale" value="4" min="3" max="5" step="1">
+      <input class="m-2" type="range" id="scale" value="4" min="3" max="5" step="1">
       <label>Сложно</label>
     </form>
     <br>
@@ -124,9 +124,9 @@ const init = () => {
     }
     solved = flag;
 
-	  if (solved) {
-		  emit("puzzle-solved");
-	  }
+    if (solved) {
+      emit("puzzle-solved");
+    }
 
   }
 
@@ -208,10 +208,6 @@ const init = () => {
     }
     drawMoveOptions()
   }
-
-	function restartGame() {
-		setBoard();
-	}
 
   solvePuzzle.value = () => {
     // Устанавливаем правильное местоположение всех плиток
