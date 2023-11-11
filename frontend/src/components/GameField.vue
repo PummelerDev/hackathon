@@ -93,9 +93,7 @@ const init = () => {
       slideTile(emptyLoc, clickLoc);
       drawTiles();
     }
-    if (solved) {
-	    emit("puzzle-solved");
-    }
+
   };
 
   function distance(x1, y1, x2, y2) {
@@ -125,7 +123,10 @@ const init = () => {
     }
     solved = flag;
 
-	  emit("puzzle-solved");
+	  if (solved) {
+		  emit("puzzle-solved");
+	  }
+
   }
 
   function drawTiles() {
