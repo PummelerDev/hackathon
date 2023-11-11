@@ -16,7 +16,9 @@
 import {onMounted, watch} from "vue";
 import useEventsBus from "@/composables/eventBus.js";
 
-const { bus } = useEventsBus()
+const { bus } = useEventsBus();
+const { emit } = useEventsBus();
+
 
 watch(() => bus.value.get('restartGame'), () => {
   init()
@@ -26,6 +28,7 @@ const init = () => {
   const canvas = document.getElementById("puzzle")
   canvas.width  = 480;
   canvas.height = 480;
+
 
   const context = canvas.getContext("2d")
   const img = new Image();
@@ -46,30 +49,6 @@ const init = () => {
   let solved = false;
   setBoard();
 
-
-	function setBoard() {
-		var allPositions = [];
-		for (var i = 0; i < tileCount; ++i) {
-			for (var j = 0; j < tileCount; ++j) {
-				allPositions.push({ x: i, y: j });
-			}
-		}
-		allPositions.sort(() => Math.random() - 0.5);
-		boardParts = new Array(tileCount);
-		for (var i = 0; i < tileCount; ++i) {
-			boardParts[i] = new Array(tileCount);
-		}
-		for (var i = 0; i < tileCount; ++i) {
-			for (var j = 0; j < tileCount; ++j) {
-				var idx = i * tileCount + j;
-				boardParts[i][j] = allPositions[idx];
-			}
-		}
-		generateEmptyLoc();
-		solved = false;
-
-		drawTiles();
-	}
 
 
   function setBoard() {
@@ -95,6 +74,8 @@ const init = () => {
     solved = false;
   }
 
+
+
   document.getElementById('scale').onchange = function() {
     tileCount = this.value;
     tileSize = boardSize / tileCount;
@@ -113,7 +94,7 @@ const init = () => {
       drawTiles();
     }
     if (solved) {
-      setTimeout(function() {alert("You solved it!");}, 500);
+	    emit("puzzle-solved");
     }
   };
 
@@ -143,6 +124,8 @@ const init = () => {
       }
     }
     solved = flag;
+
+	  emit("puzzle-solved");
   }
 
   function drawTiles() {

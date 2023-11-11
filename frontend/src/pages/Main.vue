@@ -1,11 +1,11 @@
 <template>
 	<Header/>
-<!--	<PopupStart/>-->
+		<PopupStart/>
 		<section class="d-flex align-items-center flex-column">
-			<h1>Теплые пятнашки</h1>
+			<h1>Пятнашки</h1>
 	    <GameField/>
 		</section>
-	<PopupWin/>
+	<PopupWin  v-if="isPuzzleSolved"/>
 </template>
 
 <script setup>
@@ -13,10 +13,21 @@ import {useCounterStore} from "@/stores/counter"
 import PopupStart from "@/components/PopupStart.vue";
 import Header from "@/components/Header.vue";
 import PopupWin from "@/components/PopupWin.vue";
-
+import {ref, watch} from 'vue';
 
 
 import GameField from "@/components/GameField.vue"
+
+import useEventsBus from "@/composables/eventBus.js";
+
+const isPuzzleSolved = ref(false);
+const { bus } = useEventsBus()
+
+
+
+watch(() => bus.value.get("puzzle-solved"),
+		() => {isPuzzleSolved.value = true;}
+);
 
 const store = useCounterStore()
 </script>

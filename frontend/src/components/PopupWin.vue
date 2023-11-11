@@ -1,11 +1,16 @@
 <script setup>
 import { ref } from "vue";
+import useEventsBus from "@/composables/eventBus.js";
+
+const { emit } = useEventsBus();
 
 const showModal = ref(true);
 
 const closeModal = () => {
 	showModal.value = false;
 }
+
+
 </script>
 
 <template>
