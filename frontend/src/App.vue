@@ -1,13 +1,15 @@
 <template>
   <main>
     <router-view />
-    <canvas id="puzzle15">Пора уже в этой жизни что-то менять</canvas>
+<!--    <canvas id="puzzle15"></canvas>-->
+    <GameField/>
   </main>
 </template>
 
 <script setup>
 import api from '@/composables/api'
 import {onMounted} from "vue";
+import GameField from "@/components/GameField.vue";
 
 const fetchUsers =  async () => {
   try {
@@ -18,7 +20,7 @@ const fetchUsers =  async () => {
   }
 }
 
-fetchUsers()
+// fetchUsers()
 
 onMounted(() => {
   function init() {
@@ -68,7 +70,7 @@ onMounted(() => {
     };
   }
 
-  init()
+  // init()
 
 })
 
