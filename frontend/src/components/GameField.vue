@@ -77,8 +77,6 @@ const init = () => {
     solved = false;
   }
 
-
-
   document.getElementById('scale').onchange = function() {
     tileCount = this.value;
     tileSize = boardSize / tileCount;
@@ -132,6 +130,67 @@ const init = () => {
 
   }
 
+  function drawMoveOptions() {
+
+    if (emptyLoc.y > 0) {
+      let x = emptyLoc.x * tileSize + tileSize / 2;
+      let y = (emptyLoc.y - 1) * tileSize + tileSize / 2;
+      drawArrow(x, y, "down");
+    }
+
+    if (emptyLoc.y < tileCount - 1) {
+      let x = emptyLoc.x * tileSize + tileSize / 2;
+      let y = (emptyLoc.y + 1) * tileSize + tileSize / 2;
+      drawArrow(x, y, "up");
+    }
+
+    if (emptyLoc.x > 0) {
+      let x = (emptyLoc.x - 1) * tileSize + tileSize / 2;
+      let y = emptyLoc.y * tileSize + tileSize / 2;
+      drawArrow(x, y, "right");
+    }
+
+    if (emptyLoc.x < tileCount - 1) {
+      let x = (emptyLoc.x + 1) * tileSize + tileSize / 2;
+      let y = emptyLoc.y * tileSize + tileSize / 2;
+      drawArrow(x, y, "left");
+    }
+  }
+
+  function drawArrow(x, y, direction) {
+    context.beginPath();
+    context.moveTo(x, y);
+    switch (direction) {
+      case "up":
+        context.lineTo(x, y - 10);
+        context.lineTo(x - 5, y - 5);
+        context.moveTo(x, y - 10);
+        context.lineTo(x + 5, y - 5);
+        break;
+      case "down":
+        context.lineTo(x, y + 10);
+        context.lineTo(x - 5, y + 5);
+        context.moveTo(x, y + 10);
+        context.lineTo(x + 5, y + 5);
+        break;
+      case "left":
+        context.lineTo(x - 10, y);
+        context.lineTo(x - 5, y - 5);
+        context.moveTo(x - 10, y);
+        context.lineTo(x - 5, y + 5);
+        break;
+      case "right":
+        context.lineTo(x + 10, y);
+        context.lineTo(x + 5, y - 5);
+        context.moveTo(x + 10, y);
+        context.lineTo(x + 5, y + 5);
+        break;
+    }
+    context.strokeStyle = "rgba(13, 110, 253, 0.8)";
+    context.lineWidth = 3;
+    context.stroke();
+  }
+
   function drawTiles() {
     context.clearRect ( 0 , 0 , boardSize , boardSize );
     for (let i = 0; i < tileCount; ++i) {
@@ -145,15 +204,7 @@ const init = () => {
         }
       }
     }
-  }
-
-  function drawTriangle(context, point1, point2, point3, filled) {
-    context.beginPath();
-    context.moveTo(point1.x, point1.y);
-    context.lineTo(point2.x, point2.y);
-    context.lineTo(point3.x, point3.y);
-    context.closePath();
-    filled ? context.fill() : context.stroke();
+    drawMoveOptions()
   }
 
 	function restartGame() {
@@ -173,7 +224,6 @@ const init = () => {
     emptyLoc.x = tileCount - 1;
     emptyLoc.y = tileCount - 1;
 
-    // Отображаем головоломку
     drawTiles();
 
     emit("puzzle-solved");
