@@ -1,16 +1,18 @@
 <template>
 	<Header/>
-	<PopupStart/>
+<!--	<PopupStart/>-->
 		<section class="d-flex align-items-center flex-column">
 			<h1>Пятнашки</h1>
 	    <GameField/>
 		</section>
+	<PopupWin/>
 </template>
 
 <script setup>
 import {useCounterStore} from "@/stores/counter"
 import PopupStart from "@/components/PopupStart.vue";
 import Header from "@/components/Header.vue";
+import PopupWin from "@/components/PopupWin.vue";
 
 
 

@@ -18,23 +18,9 @@ const closeModal = () => {
 							<h1 class="modal-title fs-5" id="staticBackdropLabel">Игра пятнашки</h1>
 						</div>
 						<div class="modal-body">
-							<ul class="list-group">
-								<li class="list-group-item">
-									1. Цель игры: собрать картинку из разных кусочков, перемещая их на правильные места.
-								</li>
-								<li class="list-group-item">
-									2. В начале игры кусочки картинки перемешиваются и расставляются на поле в случайном порядке.
-								</li>
-								<li class="list-group-item">
-									3. Пользуйся пустой ячейкой и двигай кусочки влево, вправо, вверх или вниз, чтобы они встали на свое место.
-								</li>
-								<li class="list-group-item">
-									4. Игра закончится, когда все кусочки будут на своих местах, и картинка соберется полностью.
-								</li>
-							</ul>
+							<h3>Ты собрал картинку! Поздравляю!</h3>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-warning">Зарегистрироваться/Авторизоватся</button>
 							<button type="button" class="btn btn-primary" @click="closeModal">Начать игру</button>
 						</div>
 					</div>

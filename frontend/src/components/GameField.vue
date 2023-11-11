@@ -22,7 +22,7 @@ onMounted(() => {
   canvas.height = 480;
   var context = canvas.getContext("2d")
   var img = new Image();
-  img.src = 'http://www.brucealderman.info/Images/dimetrodon.jpg';
+	img.src = 'http://www.brucealderman.info/Images/dimetrodon.jpg';
   img.addEventListener('load', drawTiles, false);
 
   var boardSize = document.getElementById('puzzle').width;
@@ -39,19 +39,30 @@ onMounted(() => {
   var solved = false;
   setBoard();
 
-  function setBoard() {
-    boardParts = new Array(tileCount);
-    for (var i = 0; i < tileCount; ++i) {
-      boardParts[i] = new Array(tileCount);
-      for (var j = 0; j < tileCount; ++j) {
-        boardParts[i][j] = new Object;
-        boardParts[i][j].x = (tileCount - 1) - i;
-        boardParts[i][j].y = (tileCount - 1) - j;
-      }
-    }
-    generateEmptyLoc()
-    solved = false;
-  }
+	function setBoard() {
+		var allPositions = [];
+		for (var i = 0; i < tileCount; ++i) {
+			for (var j = 0; j < tileCount; ++j) {
+				allPositions.push({ x: i, y: j });
+			}
+		}
+		allPositions.sort(() => Math.random() - 0.5);
+		boardParts = new Array(tileCount);
+		for (var i = 0; i < tileCount; ++i) {
+			boardParts[i] = new Array(tileCount);
+		}
+		for (var i = 0; i < tileCount; ++i) {
+			for (var j = 0; j < tileCount; ++j) {
+				var idx = i * tileCount + j;
+				boardParts[i][j] = allPositions[idx];
+			}
+		}
+		generateEmptyLoc();
+		solved = false;
+
+		drawTiles();
+	}
+
 
   function generateEmptyLoc() {
     const rndInt = randomIntFromInterval(1, 4)
@@ -116,11 +127,6 @@ onMounted(() => {
         var x = boardParts[i][j].x;
         var y = boardParts[i][j].y;
 
-        // const point1 = {x: boardParts[i][j].x,  y: boardParts[i][j].y};
-        // const point2 = {x: tileSize, y: 0};
-        // const point3 = {x: tileSize / 2, y: tileSize / 2 };
-        // drawTriangle(context, point1, point2, point3, true);
-
         if(i != emptyLoc.x || j != emptyLoc.y || solved == true) {
           context.drawImage(img, x * tileSize, y * tileSize, tileSize, tileSize,
               i * tileSize, j * tileSize, tileSize, tileSize);
@@ -137,5 +143,9 @@ onMounted(() => {
     context.closePath();
     filled ? context.fill() : context.stroke();
   }
+
+	function restartGame() {
+		setBoard();
+	}
 })
 </script>
