@@ -1,14 +1,23 @@
 <script setup>
-import { ref } from "vue";
+import {ref, watch} from "vue";
 import useEventsBus from "@/composables/eventBus.js";
 
-const { emit } = useEventsBus();
+const { emit, bus } = useEventsBus();
 
 const showModal = ref(true);
 
+const openModal = () => {
+  showModal.value = true;
+}
+
 const closeModal = () => {
 	showModal.value = false;
+  emit('restartGame')
 }
+
+watch(() => bus.value.get('puzzle-solved'), () => {
+  openModal()
+})
 
 
 </script>

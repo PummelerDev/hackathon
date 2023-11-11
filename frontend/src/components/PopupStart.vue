@@ -34,7 +34,7 @@ const closeModal = () => {
 							</ul>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-warning">Зарегистрироваться/Авторизоватся</button>
+<!--							<button type="button" class="btn btn-warning">Зарегистрироваться/Авторизоваться</button>-->
 							<button type="button" class="btn btn-primary" @click="closeModal">Начать игру</button>
 						</div>
 					</div>

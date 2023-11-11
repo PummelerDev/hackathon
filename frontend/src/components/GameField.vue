@@ -10,14 +10,17 @@
   <div id="main" class="main">
     <canvas id="puzzle" width="480px" height="480px"></canvas>
   </div>
+  <button class="btn btn-primary mt-4" @click="solvePuzzle">Собрать картинку</button>
 </template>
 
 <script setup>
-import {onMounted, watch} from "vue";
+import {onMounted, ref, watch} from "vue";
 import useEventsBus from "@/composables/eventBus.js";
 
 const { bus } = useEventsBus();
 const { emit } = useEventsBus();
+
+const solvePuzzle = ref(null)
 
 
 watch(() => bus.value.get('restartGame'), () => {
@@ -48,8 +51,6 @@ const init = () => {
   emptyLoc.y = 0;
   let solved = false;
   setBoard();
-
-
 
   function setBoard() {
     const allPositions = [];
@@ -156,6 +157,26 @@ const init = () => {
 	function restartGame() {
 		setBoard();
 	}
+
+  solvePuzzle.value = () => {
+    // Устанавливаем правильное местоположение всех плиток
+    for (let i = 0; i < tileCount; ++i) {
+      for (let j = 0; j < tileCount; ++j) {
+        boardParts[i][j].x = i;
+        boardParts[i][j].y = j;
+      }
+    }
+
+    // Устанавливаем пустую плитку в правый нижний угол
+    emptyLoc.x = tileCount - 1;
+    emptyLoc.y = tileCount - 1;
+
+    // Отображаем головоломку
+    drawTiles();
+
+    emit("puzzle-solved");
+
+  }
 }
 
 onMounted(() => {
