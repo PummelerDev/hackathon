@@ -48,7 +48,7 @@ public class ImageController {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.parseMediaType(MediaType.IMAGE_JPEG_VALUE));
     headers.setContentDisposition(
-        ContentDisposition.parse("attachment; file")
+        ContentDisposition.parse("attachment; file=")
     );
     return new ResponseEntity<>(image, headers, OK);
   }
