@@ -1,20 +1,13 @@
 <script setup>
 import useEventsBus from '@/composables/eventBus.js'
-import { ref, watch } from 'vue'
+import { useGameDataStore } from '@/stores/gameData.js'
 
 const { emit, bus } = useEventsBus()
 const restart = () => {
 	emit('restartGame')
 }
 
-const stepsCount = ref(0)
-watch(
-	() => bus.value.get('setSteps'),
-	(data) => {
-		const [val] = data
-		stepsCount.value = val
-	}
-)
+const gameData = useGameDataStore()
 </script>
 
 <template>
@@ -24,7 +17,7 @@ watch(
 				<button class="btn btn-warning" id="start-game" @click="restart">Начать заново</button>
 				<div class="d-flex right-buttons">
 					<h3 class="me-2">
-						<span class="badge bg-secondary" id="score">Шагов: {{ stepsCount }}</span>
+						<span class="badge bg-secondary" id="score">Шагов: {{ gameData.stepsCount }}</span>
 					</h3>
 					<!--					<h3><span class="badge bg-secondary" id="record">Рекорд: 0</span></h3>-->
 				</div>

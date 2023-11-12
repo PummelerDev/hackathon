@@ -18,11 +18,11 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import useEventsBus from '@/composables/eventBus.js'
 import { randomIntFromInterval } from '@/composables/utils.js'
+import { useGameDataStore } from '@/stores/gameData'
 
 const { bus, emit } = useEventsBus()
 
 const solvePuzzle = ref(null)
-const stepsCount = ref(0)
 
 const gameImg = ref(null)
 
@@ -30,11 +30,12 @@ const exampleImg = computed(() => {
 	return gameImg.value || 'https://i.postimg.cc/yNf4zSPB/happy-resized.jpg'
 })
 
+const gameData = useGameDataStore()
+
 watch(
 	() => bus.value.get('restartGame'),
 	() => {
-		stepsCount.value = 0
-		emit('setSteps', stepsCount.value)
+		gameData.$patch({ stepsCount: 0 })
 		init()
 	}
 )
@@ -128,7 +129,7 @@ const init = () => {
 		if (distance(clickLoc.x, clickLoc.y, emptyLoc.x, emptyLoc.y) == 1) {
 			slideTile(emptyLoc, clickLoc)
 			// drawTiles()
-			emit('setSteps', ++stepsCount.value)
+			gameData.$patch({ stepsCount: ++gameData.stepsCount })
 		}
 	}
 
@@ -157,7 +158,6 @@ const init = () => {
 			}
 		}
 		solved = flag
-		console.log('solved', solved)
 
 		if (solved) {
 			emit('puzzle-solved')
