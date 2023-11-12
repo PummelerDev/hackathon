@@ -1,7 +1,7 @@
 <template>
 	<Header/>
 		<PopupStart/>
-		<section class="d-flex align-items-center flex-column">
+		<section class="d-flex align-items-center flex-column mb-4">
 			<h1 class="p-2">Пятнашки "Счастливая семья"</h1>
       <ChooseImage/>
 	    <GameField/>
@@ -21,8 +21,6 @@ import useEventsBus from "@/composables/eventBus.js";
 
 const isPuzzleSolved = ref(false);
 const { bus } = useEventsBus()
-
-
 
 watch(() => bus.value.get("puzzle-solved"),
 		() => {isPuzzleSolved.value = true;}

@@ -23,9 +23,17 @@ const { emit } = useEventsBus();
 const solvePuzzle = ref(null)
 const stepsCount = ref(0)
 
+const gameImg = ref(null)
+
 watch(() => bus.value.get('restartGame'), () => {
   stepsCount.value = 0
   emit("setSteps", stepsCount.value);
+  init()
+})
+
+watch(() => bus.value.get('setNewGameImage'), (data) => {
+  const [val] = data
+  gameImg.value = val
   init()
 })
 
@@ -34,10 +42,9 @@ const init = () => {
   canvas.width  = 480;
   canvas.height = 480;
 
-
   const context = canvas.getContext("2d")
   const img = new Image();
-  img.src = 'https://i.postimg.cc/yNf4zSPB/happy-resized.jpg';
+  img.src = gameImg.value || 'https://i.postimg.cc/yNf4zSPB/happy-resized.jpg';
   img.addEventListener('load', drawTiles, false);
 
   const boardSize = document.getElementById('puzzle').width;
