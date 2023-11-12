@@ -7,24 +7,28 @@
 		</form>
 		<br />
 	</div>
-	<div id="main" class="main">
+	<div id="main" class="main d-flex flex-column flex-lg-row gap-5">
+		<img :src="exampleImg" />
 		<canvas id="puzzle" width="480px" height="480px"></canvas>
 	</div>
 	<button class="btn btn-primary mt-4" @click="solvePuzzle">Собрать картинку</button>
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
+import { computed, onMounted, ref, watch } from 'vue'
 import useEventsBus from '@/composables/eventBus.js'
 import { randomIntFromInterval } from '@/composables/utils.js'
 
-const { bus } = useEventsBus()
-const { emit } = useEventsBus()
+const { bus, emit } = useEventsBus()
 
 const solvePuzzle = ref(null)
 const stepsCount = ref(0)
 
 const gameImg = ref(null)
+
+const exampleImg = computed(() => {
+	return gameImg.value || 'https://i.postimg.cc/yNf4zSPB/happy-resized.jpg'
+})
 
 watch(
 	() => bus.value.get('restartGame'),
