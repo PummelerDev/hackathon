@@ -1,5 +1,8 @@
 package com.hackathon.backend.service;
 
+import static com.hackathon.backend.exception.ExceptionMessage.IMAGE_WITH_ID_NOT_FOUND;
+import static com.hackathon.backend.exception.ExceptionMessage.NO_VALID_IMAGE_FOUND;
+import static com.hackathon.backend.exception.ExceptionMessage.NO_VALID_IMAGE_RESOLUTION;
 import static java.lang.String.format;
 
 import com.hackathon.backend.domain.entity.Image;
@@ -38,21 +41,23 @@ public class ImageService {
         .collect(Collectors.toList());
   }
 
-  public void save(MultipartFile file, String name) {
+  public void save(List<MultipartFile> files, String name) {
     Image image;
+    BufferedImage img;
     try {
-      BufferedImage img = ImageIO.read(file.getInputStream());
-      if (img.getWidth() > 480 & img.getHeight() > 480) {
+      img = ImageIO.read(files.get(0).getInputStream());
+      if (img.getWidth() != 480 | img.getHeight() != 480) {
         img.flush();
-        throw new IllegalArgumentException("No valid image resolution");
+        throw new IllegalArgumentException(NO_VALID_IMAGE_RESOLUTION);
       }
       image = Image.builder()
           .name(name)
-          .image(file.getBytes())
+          .image(files.get(0).getBytes())
           .build();
-    } catch (IOException e) {
-      throw new IllegalArgumentException("No valid image");
+    } catch (IOException | NullPointerException e) {
+      throw new IllegalArgumentException(NO_VALID_IMAGE_FOUND);
     }
+    img.flush();
     imageRepository.save(image);
   }
 
@@ -63,6 +68,6 @@ public class ImageService {
 
   private Image findImageOrThrowException(long id) {
     return imageRepository.findById(id)
-        .orElseThrow(() -> new IllegalArgumentException(format("Image with id %d not found", id)));
+        .orElseThrow(() -> new IllegalArgumentException(format(IMAGE_WITH_ID_NOT_FOUND, id)));
   }
 }

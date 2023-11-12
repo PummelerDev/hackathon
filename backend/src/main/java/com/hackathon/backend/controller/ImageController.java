@@ -5,6 +5,8 @@ import static org.springframework.http.HttpStatus.OK;
 import com.hackathon.backend.domain.entity.Image;
 import com.hackathon.backend.domain.response.ImageResponse;
 import com.hackathon.backend.service.ImageService;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ContentDisposition;
@@ -46,14 +48,17 @@ public class ImageController {
     HttpHeaders headers = new HttpHeaders();
     headers.setContentType(MediaType.parseMediaType(MediaType.IMAGE_JPEG_VALUE));
     headers.setContentDisposition(
-        ContentDisposition.parse("attachment; filename=")
+        ContentDisposition.parse("attachment; file")
     );
     return new ResponseEntity<>(image, headers, OK);
   }
 
   @PostMapping(consumes = "multipart/form-data")
-  public void loadImage(@RequestPart("file") MultipartFile file, @RequestParam String name) {
-    imageService.save(file, name);
+  public void loadImage(@RequestPart("file") List<MultipartFile> files, @RequestParam String name) {
+    imageService.save(
+        files,
+        URLDecoder.decode(name, StandardCharsets.UTF_8)
+    );
   }
 
   @DeleteMapping("/{id}")
