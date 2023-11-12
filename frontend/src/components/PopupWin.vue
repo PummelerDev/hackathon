@@ -1,31 +1,39 @@
 <script setup>
-import {ref, watch} from "vue";
-import useEventsBus from "@/composables/eventBus.js";
+import { ref, watch } from 'vue'
+import useEventsBus from '@/composables/eventBus.js'
 
-const { emit, bus } = useEventsBus();
+const { emit, bus } = useEventsBus()
 
-const showModal = ref(true);
+const showModal = ref(true)
 
 const openModal = () => {
-  showModal.value = true;
+	showModal.value = true
 }
 
 const closeModal = () => {
-	showModal.value = false;
-  emit('restartGame')
+	showModal.value = false
+	emit('restartGame')
 }
 
-watch(() => bus.value.get('puzzle-solved'), () => {
-  openModal()
-})
-
-
+watch(
+	() => bus.value.get('puzzle-solved'),
+	() => {
+		openModal()
+	}
+)
 </script>
 
 <template>
 	<transition name="modal-fade">
 		<div v-if="showModal" class="modal-wrapper">
-			<div class="modal fade show" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			<div
+				class="modal fade show"
+				id="staticBackdrop"
+				data-bs-backdrop="static"
+				data-bs-keyboard="false"
+				tabindex="-1"
+				aria-labelledby="staticBackdropLabel"
+				aria-hidden="true">
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -49,11 +57,13 @@ watch(() => bus.value.get('puzzle-solved'), () => {
 	display: block;
 }
 
-.modal-fade-enter-active, .modal-fade-leave-active {
+.modal-fade-enter-active,
+.modal-fade-leave-active {
 	transition: opacity 0.5s;
 }
 
-.modal-fade-enter, .modal-fade-leave-to {
+.modal-fade-enter,
+.modal-fade-leave-to {
 	opacity: 0;
 }
 
