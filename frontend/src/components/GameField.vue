@@ -115,15 +115,13 @@ const init = () => {
 	}
 
 	function slideTile(toLoc, fromLoc) {
-		if (!solved) {
-			boardParts[toLoc.x][toLoc.y].x = boardParts[fromLoc.x][fromLoc.y].x
-			boardParts[toLoc.x][toLoc.y].y = boardParts[fromLoc.x][fromLoc.y].y
-			boardParts[fromLoc.x][fromLoc.y].x = tileCount - 1
-			boardParts[fromLoc.x][fromLoc.y].y = tileCount - 1
-			toLoc.x = fromLoc.x
-			toLoc.y = fromLoc.y
-			checkSolved()
-		}
+		boardParts[toLoc.x][toLoc.y].x = boardParts[fromLoc.x][fromLoc.y].x
+		boardParts[toLoc.x][toLoc.y].y = boardParts[fromLoc.x][fromLoc.y].y
+		boardParts[fromLoc.x][fromLoc.y].x = tileCount - 1
+		boardParts[fromLoc.x][fromLoc.y].y = tileCount - 1
+		toLoc.x = fromLoc.x
+		toLoc.y = fromLoc.y
+		checkSolved()
 	}
 
 	function checkSolved() {
@@ -233,8 +231,7 @@ const init = () => {
 		emptyLoc.y = tileCount - 1
 
 		drawTiles()
-
-		emit('puzzle-solved')
+		checkSolved()
 	}
 }
 
