@@ -30,7 +30,7 @@
 * Возможность выбора поля других размеров 3х3, 5х5 (ползунок легко/сложно)
 <img src="./frontend/src/assets/img/readme/game.png" alt="screenshot" width="1000">
 * Возможность выбора из нескольких тематических иллюстраций (select)
-<img src="./frontend/src/assets/img/readme/win.png" alt="screenshot" width="1000">
+<img src="./frontend/src/assets/img/readme/select.png" alt="screenshot" width="1000">
 
 ## Ссылка на деплой
 https://hackathon-pummelerdevs-projects.vercel.app
