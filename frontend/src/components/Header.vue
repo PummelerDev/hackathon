@@ -26,7 +26,7 @@ watch(
 					<h3 class="me-2">
 						<span class="badge bg-secondary" id="score">Шагов: {{ stepsCount }}</span>
 					</h3>
-					<h3><span class="badge bg-secondary" id="record">Рекорд: 0</span></h3>
+					<!--					<h3><span class="badge bg-secondary" id="record">Рекорд: 0</span></h3>-->
 				</div>
 			</div>
 		</nav>

@@ -16,6 +16,7 @@
 <script setup>
 import { onMounted, ref, watch } from 'vue'
 import useEventsBus from '@/composables/eventBus.js'
+import { randomIntFromInterval } from '@/composables/utils.js'
 
 const { bus } = useEventsBus()
 const { emit } = useEventsBus()
@@ -75,19 +76,36 @@ const init = () => {
 			}
 		}
 		allPositions.sort(() => Math.random() - 0.5)
+
 		boardParts = new Array(tileCount)
-		for (let i = 0; i < tileCount; ++i) {
+		for (var i = 0; i < tileCount; ++i) {
 			boardParts[i] = new Array(tileCount)
+			for (var j = 0; j < tileCount; ++j) {
+				boardParts[i][j] = new Object()
+				boardParts[i][j].x = tileCount - 1 - i
+				boardParts[i][j].y = tileCount - 1 - j
+			}
 		}
+		setEmptySell()
+
 		for (let i = 0; i < tileCount; ++i) {
 			for (let j = 0; j < tileCount; ++j) {
 				let idx = i * tileCount + j
 				boardParts[i][j] = allPositions[idx]
 			}
 		}
-		emptyLoc.x = boardParts[tileCount - 1][tileCount - 1].x
-		emptyLoc.y = boardParts[tileCount - 1][tileCount - 1].y
+
 		solved = false
+	}
+
+	function setEmptySell() {
+		emptyLoc.x = boardParts[tileCount - randomIntFromInterval(1, tileCount)][tileCount - randomIntFromInterval(1, tileCount)].x
+
+		if (emptyLoc.x === 0 || emptyLoc.x === tileCount - 1) {
+			emptyLoc.y = boardParts[tileCount - randomIntFromInterval(1, tileCount)][tileCount - randomIntFromInterval(1, tileCount)].y
+		} else {
+			emptyLoc.y = Math.random() < 0.5 ? 0 : tileCount - 1
+		}
 	}
 
 	document.getElementById('scale').onchange = function () {
@@ -105,7 +123,7 @@ const init = () => {
 	document.getElementById('puzzle').onclick = function () {
 		if (distance(clickLoc.x, clickLoc.y, emptyLoc.x, emptyLoc.y) == 1) {
 			slideTile(emptyLoc, clickLoc)
-			drawTiles()
+			// drawTiles()
 			emit('setSteps', ++stepsCount.value)
 		}
 	}
@@ -121,6 +139,7 @@ const init = () => {
 		boardParts[fromLoc.x][fromLoc.y].y = tileCount - 1
 		toLoc.x = fromLoc.x
 		toLoc.y = fromLoc.y
+		drawTiles()
 		checkSolved()
 	}
 
@@ -134,6 +153,7 @@ const init = () => {
 			}
 		}
 		solved = flag
+		console.log('solved', solved)
 
 		if (solved) {
 			emit('puzzle-solved')
@@ -218,18 +238,12 @@ const init = () => {
 	}
 
 	solvePuzzle.value = () => {
-		// Устанавливаем правильное местоположение всех плиток
 		for (let i = 0; i < tileCount; ++i) {
 			for (let j = 0; j < tileCount; ++j) {
 				boardParts[i][j].x = i
 				boardParts[i][j].y = j
 			}
 		}
-
-		// Устанавливаем пустую плитку в правый нижний угол
-		emptyLoc.x = tileCount - 1
-		emptyLoc.y = tileCount - 1
-
 		drawTiles()
 		checkSolved()
 	}
