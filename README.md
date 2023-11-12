@@ -16,6 +16,9 @@
 
 ## Описание проекта
 
+## Ссылка на деплой
+https://hackathon-pummelerdevs-projects.vercel.app
+
 ## Инструкция, как развернуть проект локально
 ### Frontend
 Проект запустится на порту `http://localhost:5173`
@@ -32,6 +35,18 @@ npm install
 # Запустить проект
 npm run dev
 ```
+### Backend
+Проект запустится на порту `http://localhost:8080`
+```bash
+# Установить докер
+# Склонировать репозиторий
+https://github.com/PummelerDev/hackathon.git
 
-## Ссылка на деплой
-https://hackathon-git-main-eireensid.vercel.app
+# Перейти в папку с проектом
+
+# Собрать проект
+docker-compose build
+
+# Запустить проект
+docker-compose up -d
+```
